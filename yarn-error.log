@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types/ts-node
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @type/readline-sync
 
 PATH: 
   C:\Program Files\Eclipse Adoptium\jdk-17.0.1.12-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Users\Neon\AppData\Local\Microsoft\WindowsApps;C:\Users\Neon\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Neon\.dotnet\tools;C:\Users\Neon\AppData\Roaming\npm;C:\Users\Neon\AppData\Local\Yarn\bin;C:\Users\Neon\AppData\Local\GitHubDesktop\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fts-node: Not found
+  Error: https://registry.yarnpkg.com/@type%2freadline-sync: Not found
       at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66140:18)
       at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140885:22)
       at Request.emit (node:events:390:28)
@@ -31,6 +31,7 @@ npm manifest:
     "dependencies": {
       "@types/node": "^17.0.10",
       "node-ts": "^5.1.2",
+      "readline-sync": "^1.4.10",
       "ts-node": "^10.4.0",
       "typescript": "^4.5.4"
     },
@@ -138,6 +139,11 @@ Lockfile:
     dependencies:
       "@rauschma/stringio" "^1.4.0"
       "@types/node" "^16.4.13"
+  
+  readline-sync@^1.4.10:
+    version "1.4.10"
+    resolved "https://registry.yarnpkg.com/readline-sync/-/readline-sync-1.4.10.tgz#41df7fbb4b6312d673011594145705bf56d8873b"
+    integrity sha512-gNva8/6UAe8QYepIQH/jQ2qn91Qj0B9sYjMBBs3QOB8F2CXcKgLxQaJRP76sWVRQt+QU+8fAkCbCvjjMFu7Ycw==
   
   ts-node@^10.4.0:
     version "10.4.0"
