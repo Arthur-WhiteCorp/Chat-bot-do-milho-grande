@@ -9,8 +9,9 @@ const readline = Readline.createInterface({
 
 export function inputToData(question: string, callbackFunction: callbackFunctionType) {
 
-  readline.on("line", (input: string) => {    
-    callbackFunction(input, readline)
+  readline.on("line", (input: string) => {
+    const normalizedInput = normalizeString(input)
+    callbackFunction(normalizedInput, readline)
   });
 
   readline.on("SIGINT", () => {
@@ -23,4 +24,19 @@ export function inputToData(question: string, callbackFunction: callbackFunction
     })
   })
 
+}
+
+function normalizeString(text: string) {
+  const textWithoutTypographicalAccents = text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  const textWithoutExtraSpaces = textWithoutTypographicalAccents
+    .split(" ")
+    .filter((string) => string !== "")
+    .join(" ");
+
+  const textFormatted = textWithoutExtraSpaces.toLowerCase();
+
+  return textFormatted;
 }
