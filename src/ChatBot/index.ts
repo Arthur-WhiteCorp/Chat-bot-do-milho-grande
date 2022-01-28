@@ -10,7 +10,7 @@ export function startChatBot(input: string, readline: ReadLine) {
   if (interaction) {
     console.log(interaction.answer);
   } else {
-    readline.question("O que eu deveria responder?", (answer: string) => {
+    readline.question("O que eu deveria responder? ", (answer: string) => {
       const interactionFetch = db.getInteraction(answer, "answer");
 
       if (!interactionFetch) {
