@@ -1,11 +1,14 @@
-import { DataBase } from "../DataBase";
+import { StaticDataBase } from "../StaticDataBase";
 import { Interaction, InputType } from "../types";
 import { ReadLine } from "readline"
+import { FirestoreDatabase } from "../Firebase";
 
-const db = new DataBase();
+//const db = new StaticDataBase();
+const db = new FirestoreDatabase();
 
 export function startChatBot(input: string, readline: ReadLine) {
-
+  
+  /*
   const interaction = db.getInteraction(input, "phrase")
 
   if (interaction) { 
@@ -26,4 +29,5 @@ export function startChatBot(input: string, readline: ReadLine) {
       console.log(`Tudo bem... ${answer}`)
     })
   }
+*/
 }

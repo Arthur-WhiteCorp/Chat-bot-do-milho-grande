@@ -1,8 +1,9 @@
 import fileSystem from "fs"
 import path from "path"
 import { Interaction, InputType} from "../types"
+import { DataBase } from "../models"
 
-export class DataBase {
+export class StaticDataBase implements DataBase {
 
   private dbPath = path.join(__dirname, "dataBase.json")
   private dbInMemory: Interaction[] = []
