@@ -1,9 +1,8 @@
 import fileSystem from "fs"
 import path from "path"
 import { Interaction, InputType} from "../types"
-import { DataBase } from "../models"
 
-export class StaticDataBase implements DataBase {
+export class StaticDataBase {
 
   private dbPath = path.join(__dirname, "dataBase.json")
   private dbInMemory: Interaction[] = []
@@ -23,7 +22,7 @@ export class StaticDataBase implements DataBase {
     if (indexFetched !== -1) {
       return this.dbInMemory[indexFetched];
     } else {
-      return null;
+      return undefined;
     }
   }
 

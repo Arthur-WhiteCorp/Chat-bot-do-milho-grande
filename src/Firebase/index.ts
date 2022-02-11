@@ -1,8 +1,7 @@
 import { Interaction, InputType } from "../types"
-import { DataBase } from "../models";
 
 import { initializeApp } from "firebase/app";
-import { addDoc, collection, getFirestore } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCRmu7QMzHVg7srHzOTVIgZNlMlXmFernw",
@@ -14,9 +13,12 @@ const firebaseConfig = {
   measurementId: "G-CFGK5YD8C5"
 };
 
+type InteractionDocument = {
+  interaction: Interaction;
+  id: string;
+}
 
-
-export class FirestoreDatabase implements DataBase {
+export class FirestoreDatabase {
   private app
   private db
 
@@ -29,21 +31,46 @@ export class FirestoreDatabase implements DataBase {
     const docRef = await addDoc(collection(this.db, "interactions"), interaction);
   };
 
-  /*async getInteraction(input: string, inputType: InputType) { 
-    
-  };*/
-
-  async appendPhrase(phrase: string, answer: string) {
-    
+  async getInteraction(input: string, inputType: InputType) { 
+    const interactionDocument = await this.getInteractionDocument(input, inputType);
+    return interactionDocument.interaction;
   };
 
-  searchInteraction(input: string, inputType: InputType) {
-    return -1;
+  async appendPhrase(phrase: string, answer: string) {
+    const { interaction, id } = await this.getInteractionDocument(answer, "answer");
+    const docRef = doc(this.db, "interactions", id);
+    setDoc(docRef, {
+      phrases: [...interaction.phrases, phrase],
+      answer: interaction.answer,
+    })
   };
 
   async deleteInteraction(input: string, inputType: InputType) {
-    
+    const { id } = await this.getInteractionDocument(input, inputType);
+    const docRef = doc(this.db, "interactions", id);
+    deleteDoc(docRef);
   }
 
+  async getInteractionDocument(input: string, inputType: InputType) {
+    const interactionsCollectionRef = collection(this.db, "interactions");
+
+    const dbQuery = inputType === "answer" ?
+      query(interactionsCollectionRef, where("answer", "==", input))
+      :
+      query(interactionsCollectionRef, where("phrases", "array-contains", input));
+
+    const docsFetched = await getDocs(dbQuery);
+    const interactions = [] as InteractionDocument[];
+    docsFetched.forEach((interaction) => {
+      interactions.push({
+        interaction: interaction.data() as Interaction,
+        id: interaction.id ,
+      })
+    });
+
+    const [ fetchedInteraction ] = interactions
+    
+    return fetchedInteraction || {};
+  } 
   
 }

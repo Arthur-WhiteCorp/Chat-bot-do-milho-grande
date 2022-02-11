@@ -1,13 +1,10 @@
-import filesystem from "fs"
-import path from "path"
-import { inputToData } from "./Inputs" 
-import {startChatBot} from "./ChatBot"
-
+import { inputToData } from "./Inputs";
+import { startChatBot } from "./ChatBot";
+import { printInitialMensage } from "./util/messages";
 
 async function main() {
-  inputToData("Nome da tua mãe: ", startChatBot);
+  printInitialMensage();
+  inputToData(startChatBot);
 }
 
-
-
-main()
+main();

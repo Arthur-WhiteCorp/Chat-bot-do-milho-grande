@@ -1,33 +1,33 @@
 import { StaticDataBase } from "../StaticDataBase";
 import { Interaction, InputType } from "../types";
-import { ReadLine } from "readline"
 import { FirestoreDatabase } from "../Firebase";
+import { ReadLine } from "readline";
+import { normalizeString } from "../util/normalizeString";
 
-//const db = new StaticDataBase();
 const db = new FirestoreDatabase();
 
-export function startChatBot(input: string, readline: ReadLine) {
+export async function startChatBot(input: string, readline: ReadLine) {
   
-  /*
-  const interaction = db.getInteraction(input, "phrase")
+  db.deleteInteraction("Ooo", "phrase");
 
-  if (interaction) { 
+  const interaction = await db.getInteraction(input, "phrase")
+
+  if (interaction) {
     console.log(interaction.answer);
-  } else { 
-    readline.question("O que eu deveria responder?", (answer: string) => {
-      const interactionFetch = db.getInteraction(answer, "answer");
+  } else {
+    readline.question("O que eu deveria responder? ", async (answer: string) => {
+      const interactionFetch = await db.getInteraction(answer, "answer");
 
-      if (!interactionFetch) { 
+      if (!interactionFetch) {
         db.writeNewInteraction({
-          phrases: [input],
-          answer
-        })
+          phrases: [normalizeString(input)],
+          answer,
+        });
       } else {
         db.appendPhrase(input, answer);
       }
-        
-      console.log(`Tudo bem... ${answer}`)
-    })
+
+      console.log(`Tudo bem... ${answer}`);
+    });
   }
-*/
 }
